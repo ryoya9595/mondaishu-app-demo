@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>購入者限定 スマホ練習問題（デモ）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f1e7; --card:#fffdf8; --ink:#1f2a24; --sub:#6b7568; --line:#e4dccb;
+  --main:#1f5c45; --main-soft:#e3efe8; --accent:#e8833a;
+  --ok:#1f7a4d; --ok-soft:#e2f3e8; --ng:#c2452f; --ng-soft:#fbe7e2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:"Zen Kaku Gothic New",-apple-system,"Hiragino Sans",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;min-height:100dvh}
+#app{max-width:480px;margin:0 auto;padding:20px 16px calc(32px + env(safe-area-inset-bottom))}
+button{font:inherit;color:inherit;border:none;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.brand-mark{width:36px;height:36px;border-radius:10px;background:var(--main);color:#fff;display:grid;place-items:center;font-weight:900;font-size:18px}
+.brand-name{font-weight:900;font-size:15px;line-height:1.3}
+.brand-name small{display:block;font-weight:500;font-size:11px;color:var(--sub)}
+.demo-tag{margin-left:auto;font-size:10px;font-weight:700;color:var(--accent);border:1.5px solid var(--accent);border-radius:99px;padding:2px 9px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:14px}
+h1{font-size:22px;font-weight:900;line-height:1.4;margin-bottom:8px}
+h2{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+h2::before{content:"";width:4px;height:14px;border-radius:2px;background:var(--accent)}
+p.lead{font-size:14px;color:var(--sub)}
+.btn{display:block;width:100%;padding:16px;border-radius:14px;font-weight:700;font-size:16px;text-align:center;transition:transform .08s}
+.btn:active{transform:scale(.98)}
+.btn-main{background:var(--main);color:#fff}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-ghost{background:var(--card);border:1.5px solid var(--line)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.btn small{display:block;font-weight:500;font-size:12px;opacity:.85}
+.stack>*+*{margin-top:10px}
+
+/* gate */
+.gate-input{width:100%;font:inherit;font-size:20px;font-weight:700;letter-spacing:.15em;text-align:center;padding:14px;border-radius:14px;border:2px solid var(--line);background:#fff;color:var(--ink);text-transform:uppercase}
+.gate-input:focus{outline:none;border-color:var(--main)}
+.gate-err{color:var(--ng);font-size:13px;font-weight:700;min-height:22px;margin-top:6px;text-align:center}
+.hint{background:#fff6ea;border:1.5px dashed var(--accent);border-radius:14px;padding:14px;font-size:13px}
+.hint b{color:var(--accent)}
+.hint code{font-family:inherit;font-weight:900;font-size:16px;letter-spacing:.1em;background:#fff;border-radius:6px;padding:1px 8px;margin-left:4px}
+
+/* home */
+.summary{display:flex;align-items:center;gap:18px}
+.ring{--p:0;width:92px;height:92px;border-radius:50%;flex:none;display:grid;place-items:center;background:conic-gradient(var(--main) calc(var(--p)*1%),var(--main-soft) 0)}
+.ring>div{width:70px;height:70px;border-radius:50%;background:var(--card);display:grid;place-items:center;text-align:center;font-weight:900;font-size:20px;line-height:1.1}
+.ring small{display:block;font-size:10px;font-weight:500;color:var(--sub)}
+.summary dl{flex:1;display:grid;grid-template-columns:1fr auto;row-gap:4px;font-size:13px}
+.summary dt{color:var(--sub)}
+.summary dd{font-weight:700;text-align:right}
+.expire{font-size:12px;color:var(--sub);text-align:center;margin:-4px 0 14px}
+.expire b{color:var(--ink)}
+.cat{display:block;width:100%;text-align:left;padding:10px 0}
+.cat+.cat{border-top:1px solid var(--line)}
+.cat-top{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;font-weight:700}
+.cat-top span:last-child{font-size:12px;color:var(--sub);font-weight:500}
+.bar{height:8px;border-radius:99px;background:var(--main-soft);margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--main);transition:width .4s}
+.bar i.low{background:var(--ng)}
+.bar i.mid{background:var(--accent)}
+.cat-note{font-size:11px;color:var(--sub);margin-top:4px}
+.reset{display:block;margin:18px auto 0;font-size:12px;color:var(--sub);text-decoration:underline}
+
+/* quiz */
+.q-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.q-close{width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--line);font-size:16px;flex:none}
+.q-prog{flex:1;height:8px;border-radius:99px;background:var(--main-soft);overflow:hidden}
+.q-prog i{display:block;height:100%;background:var(--main);border-radius:99px;transition:width .3s}
+.q-count{font-size:13px;font-weight:700;color:var(--sub);flex:none}
+.q-cat{display:inline-block;font-size:11px;font-weight:700;color:var(--main);background:var(--main-soft);border-radius:99px;padding:2px 10px;margin-bottom:8px}
+.q-text{font-size:17px;font-weight:700;line-height:1.65}
+.choices{display:grid;gap:10px;margin:14px 0}
+.choice{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:14px;border-radius:14px;background:var(--card);border:1.5px solid var(--line);font-size:15px;font-weight:500;transition:transform .08s}
+.choice:active{transform:scale(.985)}
+.choice .k{flex:none;width:26px;height:26px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:13px;font-weight:700}
+.choice.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.choice.is-ok .k{background:var(--ok);color:#fff}
+.choice.is-ng{border-color:var(--ng);background:var(--ng-soft)}
+.choice.is-ng .k{background:var(--ng);color:#fff}
+.choice.is-dim{opacity:.5}
+.choice[disabled]{pointer-events:none}
+.fb{border-radius:16px;padding:16px;margin-bottom:14px;animation:pop .25s ease-out}
+.fb.ok{background:var(--ok-soft);border:1.5px solid var(--ok)}
+.fb.ng{background:var(--ng-soft);border:1.5px solid var(--ng)}
+.fb-title{font-weight:900;font-size:17px;margin-bottom:6px}
+.fb.ok .fb-title{color:var(--ok)} .fb.ng .fb-title{color:var(--ng)}
+.fb p{font-size:14px}
+.fb .ref{margin-top:8px;font-size:12px;color:var(--sub)}
+@keyframes pop{from{transform:translateY(6px);opacity:0}to{transform:none;opacity:1}}
+
+/* result */
+.score{text-align:center;padding:8px 0 4px}
+.score b{font-size:54px;font-weight:900;line-height:1;color:var(--main)}
+.score span{font-size:18px;font-weight:700;color:var(--sub)}
+.score p{font-size:14px;font-weight:700;margin-top:8px}
+.miss{font-size:13px;padding:10px 0}
+.miss+.miss{border-top:1px solid var(--line)}
+.miss em{font-style:normal;display:block;font-size:12px;color:var(--ok);font-weight:700;margin-top:2px}
+.foot{font-size:11px;color:var(--sub);text-align:center;margin-top:22px;line-height:1.6}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* =========================================================
+   ここだけ差し替えれば自分の問題集用になる
+   ========================================================= */
+const CONFIG = {
+  bookTitle: '〇〇検定 合格問題集',
+  edition: '2026年版',
+  // 合言葉そのものは書かず、SHA-256のハッシュだけ置く（デモ用は DEMO2026）
+  passHash: '4aa05c62bc51969c5466a0bd884105fa76e806b034362effd5439368446aacba',
+  expires: '2027-09-30', // この日を過ぎると自動で使えなくなる
+  storageKey: 'mondaishu-demo-v1'
+};
+
+const QUESTIONS = [
+  {id:'l1',cat:'法律・制度',page:'P.24',q:'労働基準法が定める法定労働時間の原則として、正しいものはどれ？',
+   c:['1日8時間・週40時間','1日8時間・週48時間','1日7時間・週35時間','1日9時間・週45時間'],a:0,
+   ex:'原則は「1日8時間・週40時間」。これを超えて働かせるには、労使で36協定を結んで届け出る必要があります。'},
+  {id:'l2',cat:'法律・制度',page:'P.31',q:'雇入れから6か月間継続勤務し、全労働日の8割以上出勤した労働者に付与される年次有給休暇は何日？',
+   c:['5日','10日','12日','20日'],a:1,
+   ex:'最初の付与は10日。その後は勤続年数に応じて増え、6年6か月以上で最大の20日になります。「5日」は会社が取得させる義務のある日数なので、ひっかけに注意。'},
+  {id:'l3',cat:'法律・制度',page:'P.12',q:'民法で定められている成年年齢は？',
+   c:['16歳','18歳','20歳','22歳'],a:1,
+   ex:'2022年4月の改正で20歳から18歳に引き下げられました。ただし飲酒・喫煙などは20歳のままです。'},
+  {id:'l4',cat:'法律・制度',page:'P.47',q:'個人情報保護法の「要配慮個人情報」に当たるものはどれ？',
+   c:['氏名','メールアドレス','病歴','勤務先の名称'],a:2,
+   ex:'要配慮個人情報は、不当な差別や偏見が生じないよう特に配慮が必要な情報。病歴・信条・犯罪の経歴などが該当し、取得には原則として本人の同意が必要です。'},
+  {id:'m1',cat:'お金の基礎',page:'P.68',q:'100万円を年利2%の「単利」で3年間運用したときの元利合計は？',
+   c:['102万円','106万円','約106万1,208円','108万円'],a:1,
+   ex:'単利は元本にだけ利息がつくので、100万円 ×2% ×3年 = 6万円 → 106万円。約106万1,208円は「複利」で計算した場合の答えです。'},
+  {id:'m2',cat:'お金の基礎',page:'P.71',q:'「72の法則」を使うと、年利3%の複利で元本が2倍になるまでのおよその年数は？',
+   c:['約12年','約18年','約24年','約36年'],a:2,
+   ex:'72 ÷ 金利(%) ≒ 2倍になる年数。72 ÷ 3 = 24年。電卓なしで概算できるので試験でも実務でも便利です。'},
+  {id:'m3',cat:'お金の基礎',page:'P.80',q:'「源泉徴収」の説明として正しいものはどれ？',
+   c:['本人が年に1回まとめて税務署に納める制度','給与などの支払者が、あらかじめ税金を差し引いて国に納める制度','払いすぎた税金が自動的に戻ってくる制度','会社が従業員の住民税を肩代わりする制度'],a:1,
+   ex:'支払う側（会社など）が税金を天引きして代わりに納めるのが源泉徴収。年間の過不足を精算する手続きが「年末調整」です。'},
+  {id:'m4',cat:'お金の基礎',page:'P.85',q:'消費税の標準税率と軽減税率の組み合わせとして正しいものは？',
+   c:['標準8%・軽減5%','標準10%・軽減5%','標準10%・軽減8%','標準12%・軽減10%'],a:2,
+   ex:'2019年10月から標準税率10%・軽減税率8%。軽減税率の対象は「酒類・外食を除く飲食料品」と「定期購読の新聞」です。'},
+  {id:'b1',cat:'ビジネス基礎',page:'P.102',q:'PDCAサイクルの「C」が表すものは？',
+   c:['Change（変更）','Check（評価）','Cost（費用）','Control（管理）'],a:1,
+   ex:'Plan（計画）→ Do（実行）→ Check（評価）→ Act（改善）。「やりっぱなしにしない」ための枠組みです。'},
+  {id:'b2',cat:'ビジネス基礎',page:'P.118',q:'固定費が300万円、変動費率が60%のとき、損益分岐点売上高はいくら？',
+   c:['500万円','600万円','750万円','900万円'],a:2,
+   ex:'損益分岐点売上高 = 固定費 ÷（1 − 変動費率）= 300万 ÷ 0.4 = 750万円。「固定費を限界利益率で割る」と覚えると速いです。'},
+  {id:'b3',cat:'ビジネス基礎',page:'P.109',q:'SWOT分析の「O」が表すものは？',
+   c:['Operation（業務）','Objective（目標）','Opportunity（機会）','Organization（組織）'],a:2,
+   ex:'Strength（強み）・Weakness（弱み）が内部環境、Opportunity（機会）・Threat（脅威）が外部環境です。'},
+  {id:'b4',cat:'ビジネス基礎',page:'P.111',q:'3C分析に「含まれない」ものはどれ？',
+   c:['Customer（市場・顧客）','Competitor（競合）','Company（自社）','Channel（流通）'],a:3,
+   ex:'3CはCustomer・Competitor・Company。Channelは4P（Product / Price / Place / Promotion）のPlaceに近い概念で、3Cには入りません。'}
+];
+/* ========================================================= */
+
+const $app = document.getElementById('app');
+const KEYS = ['A','B','C','D'];
+const CATS = [...new Set(QUESTIONS.map(q => q.cat))];
+const byId = Object.fromEntries(QUESTIONS.map(q => [q.id, q]));
+
+let store = { unlocked:false, rec:{}, session:null };
+function load(){ try{ const s = JSON.parse(localStorage.getItem(CONFIG.storageKey)); if(s) store = Object.assign(store, s); }catch(e){} }
+function save(){ try{ localStorage.setItem(CONFIG.storageKey, JSON.stringify(store)); }catch(e){} }
+
+const esc = s => String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+async function sha256(t){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+}
+function daysLeft(){ return Math.ceil((new Date(CONFIG.expires + 'T23:59:59') - new Date()) / 86400000); }
+function expireLabel(){ const [y,m,d] = CONFIG.expires.split('-'); return `${y}年${+m}月${+d}日`; }
+
+function header(){
+  return `<div class="brand"><div class="brand-mark">問</div>
+    <div class="brand-name">${esc(CONFIG.bookTitle)}<small>${esc(CONFIG.edition)}・購入者限定 スマホ練習問題</small></div>
+    <span class="demo-tag">DEMO</span></div>`;
+}
+
+/* ---------- 期限切れ ---------- */
+function viewExpired(){
+  $app.innerHTML = header() + `<div class="card"><h1>提供期間が終了しました</h1>
+    <p class="lead">この練習問題は ${expireLabel()} までの提供でした。最新版の問題集には、新しい練習問題がついています。</p></div>`;
+}
+
+/* ---------- 合言葉 ---------- */
+function viewGate(){
+  $app.innerHTML = header() + `
+    <div class="card">
+      <h1>合言葉を入力してください</h1>
+      <p class="lead">問題集の最終ページに載っている合言葉を入れると、練習問題が使えるようになります。</p>
+      <form id="gate" style="margin-top:16px">
+        <input class="gate-input" id="pass" autocomplete="off" autocapitalize="characters" placeholder="合言葉" aria-label="合言葉">
+        <div class="gate-err" id="err"></div>
+        <button class="btn btn-main" type="submit">はじめる</button>
+      </form>
+    </div>
+    <div class="hint"><b>デモ用のメモ</b><br>実際の本では、ここに来るQRコードと合言葉を最終ページに印刷します。<br>デモの合言葉は<code>DEMO2026</code></div>
+    <p class="foot">一度入力すれば、次からは入力なしで開けます。</p>`;
+  document.getElementById('gate').addEventListener('submit', async e => {
+    e.preventDefault();
+    const v = document.getElementById('pass').value.trim().toUpperCase();
+    let ok = false;
+    try{ ok = (await sha256(v)) === CONFIG.passHash; }catch(_){}
+    if(ok){ store.unlocked = true; save(); viewHome(); }
+    else { document.getElementById('err').textContent = '合言葉が違うようです。もう一度確認してください。'; }
+  });
+}
+
+/* ---------- ホーム ---------- */
+function stats(list){
+  const tried = list.filter(q => store.rec[q.id]);
+  const ok = tried.filter(q => store.rec[q.id].last);
+  return { total:list.length, tried:tried.length, ok:ok.length, rate: tried.length ? Math.round(ok.length / tried.length * 100) : null };
+}
+function weakList(){ return QUESTIONS.filter(q => store.rec[q.id] && !store.rec[q.id].last); }
+
+function viewHome(){
+  const all = stats(QUESTIONS), weak = weakList(), ses = store.session;
+  const left = ses ? ses.ids.length - ses.idx : 0;
+  const cats = CATS.map(c => {
+    const s = stats(QUESTIONS.filter(q => q.cat === c));
+    const cls = s.rate === null ? '' : s.rate < 50 ? 'low' : s.rate < 80 ? 'mid' : '';
+    const note = s.rate === null ? 'まだ解いていません' : s.rate < 50 ? '苦手かも。ここから復習するのがおすすめ' : s.rate < 80 ? 'あと一歩' : 'この調子！';
+    return `<button class="cat" data-cat="${esc(c)}">
+      <div class="cat-top"><span>${esc(c)}</span><span>${s.rate === null ? '—' : '正答率 ' + s.rate + '%'}（${s.tried}/${s.total}問）</span></div>
+      <div class="bar"><i class="${cls}" style="width:${s.rate ?? 0}%"></i></div>
+      <div class="cat-note">${note}　›</div></button>`;
+  }).join('');
+
+  $app.innerHTML = header() + `
+    <div class="card"><div class="summary">
+      <div class="ring" style="--p:${all.tried / all.total * 100}"><div><span>${all.tried}<small>/ ${all.total}問</small></span></div></div>
+      <dl><dt>正答率</dt><dd>${all.rate === null ? '—' : all.rate + '%'}</dd>
+          <dt>要復習</dt><dd>${weak.length}問</dd>
+          <dt>まだの問題</dt><dd>${all.total - all.tried}問</dd></dl>
+    </div></div>
+    <p class="expire">利用期限：<b>${expireLabel()}</b> まで（あと${daysLeft()}日）</p>
+    <div class="stack" style="margin-bottom:14px">
+      ${ses ? `<button class="btn btn-accent" id="resume">続きから再開<small>前回の途中から・あと${left}問</small></button>` : ''}
+      <button class="btn btn-main" id="startAll">${all.tried ? '全問チャレンジ' : '練習をはじめる'}<small>全${all.total}問・ランダム出題</small></button>
+      <button class="btn btn-ghost" id="startWeak" ${weak.length ? '' : 'disabled'}>間違えた問題だけ復習<small>${weak.length ? weak.length + '問' : '間違えた問題はまだありません'}</small></button>
+    </div>
+    <div class="card"><h2>分野別の正答率（タップでその分野だけ出題）</h2>${cats}</div>
+    <button class="reset" id="reset">学習記録をリセットする</button>
+    <p class="foot">※ これはデモです。問題はサンプルで、参照ページ番号も架空のものです。<br>学習記録はこのスマホの中だけに保存されます。</p>`;
+
+  const on = (id, fn) => { const el = document.getElementById(id); if(el) el.addEventListener('click', fn); };
+  on('resume', () => viewQuiz());
+  on('startAll', () => start(QUESTIONS, '全問チャレンジ'));
+  on('startWeak', () => start(weakList(), '間違えた問題の復習'));
+  on('reset', () => { if(confirm('学習記録をすべて消します。よろしいですか？')){ store.rec = {}; store.session = null; save(); viewHome(); } });
+  document.querySelectorAll('.cat').forEach(b => b.addEventListener('click', () => start(QUESTIONS.filter(q => q.cat === b.dataset.cat), b.dataset.cat)));
+}
+
+/* ---------- 出題 ---------- */
+function start(list, label){
+  if(!list.length) return;
+  store.session = { label, ids: shuffle(list.map(q => q.id)), idx:0, res:[] };
+  save(); viewQuiz();
+}
+
+function viewQuiz(){
+  const ses = store.session;
+  if(!ses || ses.idx >= ses.ids.length) return viewResult();
+  const q = byId[ses.ids[ses.idx]];
+  const order = shuffle(q.c.map((_, i) => i));
+  $app.innerHTML = `
+    <div class="q-head">
+      <button class="q-close" id="close" aria-label="中断してホームへ">✕</button>
+      <div class="q-prog"><i style="width:${ses.idx / ses.ids.length * 100}%"></i></div>
+      <div class="q-count">${ses.idx + 1} / ${ses.ids.length}</div>
+    </div>
+    <span class="q-cat">${esc(q.cat)}</span>
+    <p class="q-text">${esc(q.q)}</p>
+    <div class="choices">${order.map((ci, n) => `<button class="choice" data-ci="${ci}"><span class="k">${KEYS[n]}</span><span>${esc(q.c[ci])}</span></button>`).join('')}</div>
+    <div id="fb"></div>`;
+  document.getElementById('close').addEventListener('click', viewHome);
+  document.querySelectorAll('.choice').forEach(b => b.addEventListener('click', () => answer(q, +b.dataset.ci)));
+  window.scrollTo(0, 0);
+}
+
+function answer(q, ci){
+  const ok = ci === q.a, ses = store.session;
+  document.querySelectorAll('.choice').forEach(b => {
+    const i = +b.dataset.ci; b.disabled = true;
+    if(i === q.a) b.classList.add('is-ok'); else if(i === ci) b.classList.add('is-ng'); else b.classList.add('is-dim');
+  });
+  const r = store.rec[q.id] || { tries:0, wrong:0, last:false };
+  r.tries++; if(!ok) r.wrong++; r.last = ok; store.rec[q.id] = r;
+  ses.res.push({ id:q.id, ok }); ses.idx++; save();
+
+  const last = ses.idx >= ses.ids.length;
+  const fb = document.getElementById('fb');
+  fb.innerHTML = `<div class="fb ${ok ? 'ok' : 'ng'}">
+      <div class="fb-title">${ok ? '⭕ 正解！' : '❌ 不正解'}</div>
+      ${ok ? '' : `<p style="font-weight:700;margin-bottom:6px">正解：${esc(q.c[q.a])}</p>`}
+      <p>${esc(q.ex)}</p>
+      <p class="ref">📖 問題集 ${esc(q.page)} で詳しく復習できます${r.wrong >= 2 ? `　／　この問題は${r.wrong}回間違えています` : ''}</p>
+    </div>
+    <button class="btn btn-main" id="next">${last ? '結果を見る' : '次の問題へ'}</button>`;
+  document.getElementById('next').addEventListener('click', viewQuiz);
+  fb.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+/* ---------- 結果 ---------- */
+function viewResult(){
+  const ses = store.session;
+  if(!ses) return viewHome();
+  const okN = ses.res.filter(r => r.ok).length, n = ses.res.length, rate = Math.round(okN / n * 100);
+  const miss = ses.res.filter(r => !r.ok).map(r => byId[r.id]);
+  const msg = rate === 100 ? '全問正解！完璧です 🎉' : rate >= 80 ? '合格ライン！この調子でいきましょう' : rate >= 50 ? 'あと一歩。間違えた問題をもう一度' : 'ここからが伸びしろ。解説を読んで再挑戦！';
+  store.session = null; save();
+  $app.innerHTML = header() + `
+    <div class="card"><h2>${esc(ses.label)} の結果</h2>
+      <div class="score"><b>${okN}</b><span> / ${n}問</span><p>${msg}</p></div></div>
+    ${miss.length ? `<div class="card"><h2>間違えた問題</h2>${miss.map(q => `<div class="miss">${esc(q.q)}<em>正解：${esc(q.c[q.a])}（${esc(q.page)}）</em></div>`).join('')}</div>` : ''}
+    <div class="stack">
+      ${miss.length ? `<button class="btn btn-accent" id="retry">間違えた${miss.length}問だけもう一度</button>` : ''}
+      <button class="btn ${miss.length ? 'btn-ghost' : 'btn-main'}" id="home">ホームへ戻る</button>
+    </div>`;
+  const retry = document.getElementById('retry');
+  if(retry) retry.addEventListener('click', () => start(miss, '間違えた問題の復習'));
+  document.getElementById('home').addEventListener('click', viewHome);
+  window.scrollTo(0, 0);
+}
+
+/* ---------- 起動 ---------- */
+load();
+if(daysLeft() <= 0) viewExpired();
+else if(!store.unlocked) viewGate();
+else viewHome();
+</script>
+</body>
+</html>
