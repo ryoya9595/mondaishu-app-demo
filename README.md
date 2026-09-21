@@ -4,6 +4,7 @@
 
 - 公開URL: https://ryoya9595.github.io/mondaishu-app-demo/
 - デモの合言葉: `DEMO2026`
+- デザイン: 公式テイスト版（紺×白×金ライン・明朝見出し・絵文字なし）が `index.html`。最初のポップ版は `pop.html` に残してある → https://ryoya9595.github.io/mondaishu-app-demo/pop.html
 - 中身は `index.html` 1枚（サーバーなし・月額0円）。問題と設定はファイル上部の `CONFIG` と `QUESTIONS` を差し替えるだけ。
 - 問題はすべて自作のサンプル。参照ページ番号も架空。
 

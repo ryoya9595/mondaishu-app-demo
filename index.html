@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>購入者限定 スマホ練習問題（デモ）</title>
+<title>購入者特典 Web練習問題（サンプル版）</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
@@ -249,7 +249,7 @@ function viewHome(){
       <div class="ring" style="--p:${all.tried / all.total * 100}"><div><span>${all.tried}<small>/ ${all.total}問</small></span></div></div>
       <dl><dt>正答率</dt><dd>${all.rate === null ? '—' : all.rate + '%'}</dd>
           <dt>要復習</dt><dd>${weak.length}問</dd>
-          <dt>まだの問題</dt><dd>${all.total - all.tried}問</dd></dl>
+          <dt>未着手</dt><dd>${all.total - all.tried}問</dd></dl>
     </div></div>
     <p class="expire">利用期限：<b>${expireLabel()}</b> まで（あと${daysLeft()}日）</p>
     <div class="stack" style="margin-bottom:14px">
