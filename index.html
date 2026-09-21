@@ -249,7 +249,7 @@ function viewHome(){
       <button class="btn btn-main" id="startAll">${all.tried ? '全問チャレンジ' : '練習をはじめる'}<small>全${all.total}問・ランダム出題</small></button>
       <button class="btn btn-ghost" id="startWeak" ${weak.length ? '' : 'disabled'}>間違えた問題だけ復習<small>${weak.length ? weak.length + '問' : '間違えた問題はまだありません'}</small></button>
     </div>
-    <div class="card"><h2>分野別の正答率（タップでその分野だけ出題）</h2>${cats}</div>
+    <div class="card"><h2>分野別の正答率</h2><p class="cat-note" style="margin:-8px 0 4px">タップすると、その分野だけ出題します</p>${cats}</div>
     <button class="reset" id="reset">学習記録をリセットする</button>
     <p class="foot">※ これはデモです。問題はサンプルで、参照ページ番号も架空のものです。<br>学習記録はこのスマホの中だけに保存されます。</p>`;
 
