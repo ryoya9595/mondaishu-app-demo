@@ -7,110 +7,102 @@
 <title>購入者限定 スマホ練習問題（デモ）</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f3f4f6; --card:#ffffff; --ink:#1a1f2b; --sub:#5b6472; --line:#d5d9e0;
-  --main:#0c2d5e; --main-soft:#e6ebf3; --gold:#a88734;
-  --ok:#1b6e3c; --ok-soft:#eef6f0; --ng:#b3261e; --ng-soft:#fbefee; --mid:#8a6d1d;
-  --serif:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;
+  --bg:#f6f1e7; --card:#fffdf8; --ink:#1f2a24; --sub:#6b7568; --line:#e4dccb;
+  --main:#1f5c45; --main-soft:#e3efe8; --accent:#e8833a;
+  --ok:#1f7a4d; --ok-soft:#e2f3e8; --ng:#c2452f; --ng-soft:#fbe7e2;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
-body{font-family:"Noto Sans JP",-apple-system,"Hiragino Sans",sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;min-height:100dvh;font-feature-settings:"palt"}
-#app{max-width:480px;margin:0 auto;padding:0 16px calc(32px + env(safe-area-inset-bottom));min-height:100dvh}
+body{font-family:"Zen Kaku Gothic New",-apple-system,"Hiragino Sans",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;min-height:100dvh}
+#app{max-width:480px;margin:0 auto;padding:20px 16px calc(32px + env(safe-area-inset-bottom))}
 button{font:inherit;color:inherit;border:none;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.brand{display:flex;align-items:center;gap:10px;margin:0 -16px 20px;padding:16px 16px 14px;background:var(--main);color:#fff;border-bottom:3px solid var(--gold)}
-.brand-mark{display:none}
-.brand-name{font-family:var(--serif);font-weight:700;font-size:17px;line-height:1.4;letter-spacing:.04em}
-.brand-name small{display:block;font-family:"Noto Sans JP",sans-serif;font-weight:400;font-size:11px;letter-spacing:.06em;opacity:.8;margin-top:2px}
-.demo-tag{margin-left:auto;flex:none;font-size:10px;letter-spacing:.08em;color:#fff;border:1px solid rgba(255,255,255,.55);border-radius:2px;padding:2px 8px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:20px 18px;margin-bottom:14px}
-h1{font-family:var(--serif);font-size:20px;font-weight:700;line-height:1.5;letter-spacing:.03em;margin-bottom:10px}
-h2{font-size:14px;font-weight:700;letter-spacing:.04em;color:var(--main);margin-bottom:14px;padding:0 0 8px 10px;border-bottom:1px solid var(--line);position:relative}
-h2::before{content:"";position:absolute;left:0;top:4px;width:3px;height:16px;background:var(--main)}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.brand-mark{width:36px;height:36px;border-radius:10px;background:var(--main);color:#fff;display:grid;place-items:center;font-weight:900;font-size:18px}
+.brand-name{font-weight:900;font-size:15px;line-height:1.3}
+.brand-name small{display:block;font-weight:500;font-size:11px;color:var(--sub)}
+.demo-tag{margin-left:auto;font-size:10px;font-weight:700;color:var(--accent);border:1.5px solid var(--accent);border-radius:99px;padding:2px 9px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:14px}
+h1{font-size:22px;font-weight:900;line-height:1.4;margin-bottom:8px}
+h2{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+h2::before{content:"";width:4px;height:14px;border-radius:2px;background:var(--accent)}
 p.lead{font-size:14px;color:var(--sub)}
-.btn{display:block;width:100%;padding:15px;border-radius:4px;font-weight:700;font-size:15px;letter-spacing:.06em;text-align:center;border:1px solid transparent;transition:opacity .1s}
-.btn:active{opacity:.8}
+.btn{display:block;width:100%;padding:16px;border-radius:14px;font-weight:700;font-size:16px;text-align:center;transition:transform .08s}
+.btn:active{transform:scale(.98)}
 .btn-main{background:var(--main);color:#fff}
-.btn-accent{background:#fff;color:var(--main);border:2px solid var(--main)}
-.btn-ghost{background:#fff;border-color:var(--line);color:var(--ink)}
-.btn[disabled]{opacity:.45;pointer-events:none}
-.btn small{display:block;font-weight:400;font-size:11px;letter-spacing:.04em;opacity:.8;margin-top:1px}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-ghost{background:var(--card);border:1.5px solid var(--line)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.btn small{display:block;font-weight:500;font-size:12px;opacity:.85}
 .stack>*+*{margin-top:10px}
 
 /* gate */
-.gate-input{width:100%;font:inherit;font-size:19px;font-weight:700;letter-spacing:.2em;text-align:center;padding:13px;border-radius:4px;border:1px solid #aab1bd;background:#fff;color:var(--ink);text-transform:uppercase}
-.gate-input::placeholder{font-weight:400;letter-spacing:.1em;color:#a3aab5}
-.gate-input:focus{outline:2px solid var(--main);outline-offset:-1px}
-.gate-err{color:var(--ng);font-size:13px;font-weight:700;min-height:24px;margin-top:6px;text-align:center}
-.hint{background:#fff;border:1px dashed #aab1bd;border-radius:4px;padding:14px 16px;font-size:12.5px;color:var(--sub)}
-.hint b{color:var(--ink);font-size:12px;letter-spacing:.06em}
-.hint code{font-family:inherit;font-weight:700;font-size:15px;letter-spacing:.12em;color:var(--ink);background:var(--bg);border-radius:2px;padding:1px 8px;margin-left:4px}
+.gate-input{width:100%;font:inherit;font-size:20px;font-weight:700;letter-spacing:.15em;text-align:center;padding:14px;border-radius:14px;border:2px solid var(--line);background:#fff;color:var(--ink);text-transform:uppercase}
+.gate-input:focus{outline:none;border-color:var(--main)}
+.gate-err{color:var(--ng);font-size:13px;font-weight:700;min-height:22px;margin-top:6px;text-align:center}
+.hint{background:#fff6ea;border:1.5px dashed var(--accent);border-radius:14px;padding:14px;font-size:13px}
+.hint b{color:var(--accent)}
+.hint code{font-family:inherit;font-weight:900;font-size:16px;letter-spacing:.1em;background:#fff;border-radius:6px;padding:1px 8px;margin-left:4px}
 
 /* home */
-.summary{display:flex;align-items:center;gap:20px}
-.ring{--p:0;width:88px;height:88px;border-radius:50%;flex:none;display:grid;place-items:center;background:conic-gradient(var(--main) calc(var(--p)*1%),var(--main-soft) 0)}
-.ring>div{width:74px;height:74px;border-radius:50%;background:var(--card);display:grid;place-items:center;text-align:center;font-family:var(--serif);font-weight:700;font-size:22px;line-height:1.1}
-.ring small{display:block;font-family:"Noto Sans JP",sans-serif;font-size:10px;font-weight:400;color:var(--sub);margin-top:2px}
-.summary dl{flex:1;display:grid;grid-template-columns:1fr auto;font-size:13px}
-.summary dt,.summary dd{padding:5px 0;border-bottom:1px solid #eceef2}
+.summary{display:flex;align-items:center;gap:18px}
+.ring{--p:0;width:92px;height:92px;border-radius:50%;flex:none;display:grid;place-items:center;background:conic-gradient(var(--main) calc(var(--p)*1%),var(--main-soft) 0)}
+.ring>div{width:70px;height:70px;border-radius:50%;background:var(--card);display:grid;place-items:center;text-align:center;font-weight:900;font-size:20px;line-height:1.1}
+.ring small{display:block;font-size:10px;font-weight:500;color:var(--sub)}
+.summary dl{flex:1;display:grid;grid-template-columns:1fr auto;row-gap:4px;font-size:13px}
 .summary dt{color:var(--sub)}
 .summary dd{font-weight:700;text-align:right}
-.summary dt:last-of-type,.summary dd:last-of-type{border-bottom:none}
-.expire{font-size:12px;color:var(--sub);text-align:center;margin:-2px 0 14px;letter-spacing:.03em}
+.expire{font-size:12px;color:var(--sub);text-align:center;margin:-4px 0 14px}
 .expire b{color:var(--ink)}
-.cat{display:block;width:100%;text-align:left;padding:12px 0}
-.cat:first-of-type{padding-top:2px}
-.cat+.cat{border-top:1px solid #eceef2}
+.cat{display:block;width:100%;text-align:left;padding:10px 0}
+.cat+.cat{border-top:1px solid var(--line)}
 .cat-top{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;font-weight:700}
-.cat-top span:last-child{font-size:12px;color:var(--sub);font-weight:400}
-.bar{height:6px;border-radius:0;background:var(--main-soft);margin-top:7px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--main);transition:width .4s}
+.cat-top span:last-child{font-size:12px;color:var(--sub);font-weight:500}
+.bar{height:8px;border-radius:99px;background:var(--main-soft);margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--main);transition:width .4s}
 .bar i.low{background:var(--ng)}
-.bar i.mid{background:var(--mid)}
-.cat-note{font-size:11px;color:var(--sub);margin-top:5px}
+.bar i.mid{background:var(--accent)}
+.cat-note{font-size:11px;color:var(--sub);margin-top:4px}
 .reset{display:block;margin:18px auto 0;font-size:12px;color:var(--sub);text-decoration:underline}
 
 /* quiz */
-.q-head{display:flex;align-items:center;gap:12px;margin:0 -16px 18px;padding:12px 16px;background:#fff;border-bottom:1px solid var(--line)}
-.q-close{width:32px;height:32px;border-radius:4px;border:1px solid var(--line);font-size:14px;color:var(--sub);flex:none}
-.q-prog{flex:1;height:4px;background:var(--main-soft);overflow:hidden}
-.q-prog i{display:block;height:100%;background:var(--main);transition:width .3s}
-.q-count{font-size:13px;font-weight:700;color:var(--main);flex:none;letter-spacing:.04em}
-.q-cat{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--main);border:1px solid var(--main);border-radius:2px;padding:1px 8px;margin-bottom:10px}
-.q-text{font-size:16.5px;font-weight:700;line-height:1.75}
-.choices{display:grid;gap:8px;margin:16px 0}
-.choice{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:14px;border-radius:4px;background:#fff;border:1px solid var(--line);font-size:15px;line-height:1.6}
-.choice:active{background:var(--main-soft)}
-.choice .k{flex:none;width:24px;height:24px;border-radius:2px;border:1px solid #aab1bd;display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--sub);margin-top:1px}
-.choice.is-ok{border-color:var(--ok);background:var(--ok-soft);box-shadow:inset 3px 0 0 var(--ok)}
-.choice.is-ok .k{background:var(--ok);border-color:var(--ok);color:#fff}
-.choice.is-ng{border-color:var(--ng);background:var(--ng-soft);box-shadow:inset 3px 0 0 var(--ng)}
-.choice.is-ng .k{background:var(--ng);border-color:var(--ng);color:#fff}
+.q-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.q-close{width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--line);font-size:16px;flex:none}
+.q-prog{flex:1;height:8px;border-radius:99px;background:var(--main-soft);overflow:hidden}
+.q-prog i{display:block;height:100%;background:var(--main);border-radius:99px;transition:width .3s}
+.q-count{font-size:13px;font-weight:700;color:var(--sub);flex:none}
+.q-cat{display:inline-block;font-size:11px;font-weight:700;color:var(--main);background:var(--main-soft);border-radius:99px;padding:2px 10px;margin-bottom:8px}
+.q-text{font-size:17px;font-weight:700;line-height:1.65}
+.choices{display:grid;gap:10px;margin:14px 0}
+.choice{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:14px;border-radius:14px;background:var(--card);border:1.5px solid var(--line);font-size:15px;font-weight:500;transition:transform .08s}
+.choice:active{transform:scale(.985)}
+.choice .k{flex:none;width:26px;height:26px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:13px;font-weight:700}
+.choice.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.choice.is-ok .k{background:var(--ok);color:#fff}
+.choice.is-ng{border-color:var(--ng);background:var(--ng-soft)}
+.choice.is-ng .k{background:var(--ng);color:#fff}
 .choice.is-dim{opacity:.5}
 .choice[disabled]{pointer-events:none}
-.fb{border-radius:4px;padding:16px;margin-bottom:14px;background:#fff;border:1px solid var(--line);animation:pop .2s ease-out}
-.fb.ok{border-top:3px solid var(--ok)}
-.fb.ng{border-top:3px solid var(--ng)}
-.fb-title{font-family:var(--serif);font-weight:700;font-size:18px;letter-spacing:.1em;margin-bottom:8px}
+.fb{border-radius:16px;padding:16px;margin-bottom:14px;animation:pop .25s ease-out}
+.fb.ok{background:var(--ok-soft);border:1.5px solid var(--ok)}
+.fb.ng{background:var(--ng-soft);border:1.5px solid var(--ng)}
+.fb-title{font-weight:900;font-size:17px;margin-bottom:6px}
 .fb.ok .fb-title{color:var(--ok)} .fb.ng .fb-title{color:var(--ng)}
-.fb-h{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--sub);margin:10px 0 2px}
 .fb p{font-size:14px}
-.fb .ref{margin-top:12px;padding-top:10px;border-top:1px solid #eceef2;font-size:12px;color:var(--sub)}
-@keyframes pop{from{transform:translateY(4px);opacity:0}to{transform:none;opacity:1}}
+.fb .ref{margin-top:8px;font-size:12px;color:var(--sub)}
+@keyframes pop{from{transform:translateY(6px);opacity:0}to{transform:none;opacity:1}}
 
 /* result */
-.score{text-align:center;padding:6px 0 2px}
-.score b{font-family:var(--serif);font-size:52px;font-weight:700;line-height:1;color:var(--main)}
-.score span{font-size:16px;font-weight:700;color:var(--sub)}
-.score p{font-size:14px;margin-top:10px}
-.miss{font-size:13px;padding:11px 0}
-.miss:first-of-type{padding-top:0}
-.miss+.miss{border-top:1px solid #eceef2}
-.miss em{font-style:normal;display:block;font-size:12px;color:var(--ok);font-weight:700;margin-top:3px}
-.foot{font-size:11px;color:var(--sub);text-align:center;margin-top:24px;line-height:1.7}
-.copy{font-size:10px;color:#8b93a0;text-align:center;margin-top:14px;letter-spacing:.06em}
+.score{text-align:center;padding:8px 0 4px}
+.score b{font-size:54px;font-weight:900;line-height:1;color:var(--main)}
+.score span{font-size:18px;font-weight:700;color:var(--sub)}
+.score p{font-size:14px;font-weight:700;margin-top:8px}
+.miss{font-size:13px;padding:10px 0}
+.miss+.miss{border-top:1px solid var(--line)}
+.miss em{font-style:normal;display:block;font-size:12px;color:var(--ok);font-weight:700;margin-top:2px}
+.foot{font-size:11px;color:var(--sub);text-align:center;margin-top:22px;line-height:1.6}
 </style>
 </head>
 <body>
@@ -189,8 +181,8 @@ function expireLabel(){ const [y,m,d] = CONFIG.expires.split('-'); return `${y}�
 
 function header(){
   return `<div class="brand"><div class="brand-mark">問</div>
-    <div class="brand-name">${esc(CONFIG.bookTitle)}<small>${esc(CONFIG.edition)}　購入者特典 Web練習問題</small></div>
-    <span class="demo-tag">サンプル版</span></div>`;
+    <div class="brand-name">${esc(CONFIG.bookTitle)}<small>${esc(CONFIG.edition)}・購入者限定 スマホ練習問題</small></div>
+    <span class="demo-tag">DEMO</span></div>`;
 }
 
 /* ---------- 期限切れ ---------- */
@@ -203,23 +195,23 @@ function viewExpired(){
 function viewGate(){
   $app.innerHTML = header() + `
     <div class="card">
-      <h1>合言葉の入力</h1>
-      <p class="lead">問題集の最終ページに記載されている合言葉を入力してください。購入者の方のみご利用いただけます。</p>
+      <h1>合言葉を入力してください</h1>
+      <p class="lead">問題集の最終ページに載っている合言葉を入れると、練習問題が使えるようになります。</p>
       <form id="gate" style="margin-top:16px">
         <input class="gate-input" id="pass" autocomplete="off" autocapitalize="characters" placeholder="合言葉" aria-label="合言葉">
         <div class="gate-err" id="err"></div>
-        <button class="btn btn-main" type="submit">利用を開始する</button>
+        <button class="btn btn-main" type="submit">はじめる</button>
       </form>
     </div>
-    <div class="hint"><b>サンプル版のご案内</b><br>実際の書籍では、このページへのQRコードと合言葉を最終ページに印刷します。<br>サンプル版の合言葉：<code>DEMO2026</code></div>
-    <p class="foot">一度入力すると、次回以降は入力なしでご利用いただけます。</p>`;
+    <div class="hint"><b>デモ用のメモ</b><br>実際の本では、ここに来るQRコードと合言葉を最終ページに印刷します。<br>デモの合言葉は<code>DEMO2026</code></div>
+    <p class="foot">一度入力すれば、次からは入力なしで開けます。</p>`;
   document.getElementById('gate').addEventListener('submit', async e => {
     e.preventDefault();
     const v = document.getElementById('pass').value.trim().toUpperCase();
     let ok = false;
     try{ ok = (await sha256(v)) === CONFIG.passHash; }catch(_){}
     if(ok){ store.unlocked = true; save(); viewHome(); }
-    else { document.getElementById('err').textContent = '合言葉が正しくありません。もう一度ご確認ください。'; }
+    else { document.getElementById('err').textContent = '合言葉が違うようです。もう一度確認してください。'; }
   });
 }
 
@@ -237,7 +229,7 @@ function viewHome(){
   const cats = CATS.map(c => {
     const s = stats(QUESTIONS.filter(q => q.cat === c));
     const cls = s.rate === null ? '' : s.rate < 50 ? 'low' : s.rate < 80 ? 'mid' : '';
-    const note = s.rate === null ? '未着手' : s.rate < 50 ? '重点的な復習をおすすめします' : s.rate < 80 ? 'あと一歩です' : '合格水準です';
+    const note = s.rate === null ? 'まだ解いていません' : s.rate < 50 ? '苦手かも。ここから復習するのがおすすめ' : s.rate < 80 ? 'あと一歩' : 'この調子！';
     return `<button class="cat" data-cat="${esc(c)}">
       <div class="cat-top"><span>${esc(c)}</span><span>${s.rate === null ? '—' : '正答率 ' + s.rate + '%'}（${s.tried}/${s.total}問）</span></div>
       <div class="bar"><i class="${cls}" style="width:${s.rate ?? 0}%"></i></div>
@@ -253,19 +245,19 @@ function viewHome(){
     </div></div>
     <p class="expire">利用期限：<b>${expireLabel()}</b> まで（あと${daysLeft()}日）</p>
     <div class="stack" style="margin-bottom:14px">
-      ${ses ? `<button class="btn btn-accent" id="resume">前回の続きから再開する<small>残り${left}問</small></button>` : ''}
-      <button class="btn btn-main" id="startAll">${all.tried ? '全問を解く' : '練習を開始する'}<small>全${all.total}問・ランダム出題</small></button>
-      <button class="btn btn-ghost" id="startWeak" ${weak.length ? '' : 'disabled'}>間違えた問題を復習する<small>${weak.length ? weak.length + '問' : '該当する問題はありません'}</small></button>
+      ${ses ? `<button class="btn btn-accent" id="resume">続きから再開<small>前回の途中から・あと${left}問</small></button>` : ''}
+      <button class="btn btn-main" id="startAll">${all.tried ? '全問チャレンジ' : '練習をはじめる'}<small>全${all.total}問・ランダム出題</small></button>
+      <button class="btn btn-ghost" id="startWeak" ${weak.length ? '' : 'disabled'}>間違えた問題だけ復習<small>${weak.length ? weak.length + '問' : '間違えた問題はまだありません'}</small></button>
     </div>
-    <div class="card"><h2>分野別の正答率</h2><p class="cat-note" style="margin:-8px 0 4px">分野名を選ぶと、その分野のみ出題します</p>${cats}</div>
+    <div class="card"><h2>分野別の正答率</h2><p class="cat-note" style="margin:-8px 0 4px">タップすると、その分野だけ出題します</p>${cats}</div>
     <button class="reset" id="reset">学習記録をリセットする</button>
-    <p class="foot">※ 本ページはサンプル版です。問題および参照ページ番号は架空のものです。<br>学習記録はお使いの端末内にのみ保存されます。</p><p class="copy">© ${esc(CONFIG.bookTitle)} 購入者特典</p>`;
+    <p class="foot">※ これはデモです。問題はサンプルで、参照ページ番号も架空のものです。<br>学習記録はこのスマホの中だけに保存されます。</p>`;
 
   const on = (id, fn) => { const el = document.getElementById(id); if(el) el.addEventListener('click', fn); };
   on('resume', () => viewQuiz());
-  on('startAll', () => start(QUESTIONS, '全問'));
+  on('startAll', () => start(QUESTIONS, '全問チャレンジ'));
   on('startWeak', () => start(weakList(), '間違えた問題の復習'));
-  on('reset', () => { if(confirm('学習記録をすべて消去します。よろしいですか？')){ store.rec = {}; store.session = null; save(); viewHome(); } });
+  on('reset', () => { if(confirm('学習記録をすべて消します。よろしいですか？')){ store.rec = {}; store.session = null; save(); viewHome(); } });
   document.querySelectorAll('.cat').forEach(b => b.addEventListener('click', () => start(QUESTIONS.filter(q => q.cat === b.dataset.cat), b.dataset.cat)));
 }
 
@@ -309,11 +301,10 @@ function answer(q, ci){
   const last = ses.idx >= ses.ids.length;
   const fb = document.getElementById('fb');
   fb.innerHTML = `<div class="fb ${ok ? 'ok' : 'ng'}">
-      <div class="fb-title">${ok ? '正解' : '不正解'}</div>
-      ${ok ? '' : `<div class="fb-h">正答</div><p style="font-weight:700">${esc(q.c[q.a])}</p>`}
-      <div class="fb-h">解説</div>
+      <div class="fb-title">${ok ? '⭕ 正解！' : '❌ 不正解'}</div>
+      ${ok ? '' : `<p style="font-weight:700;margin-bottom:6px">正解：${esc(q.c[q.a])}</p>`}
       <p>${esc(q.ex)}</p>
-      <p class="ref">参照：問題集 ${esc(q.page)}${r.wrong >= 2 ? `　／　この問題の誤答 ${r.wrong}回` : ''}</p>
+      <p class="ref">📖 問題集 ${esc(q.page)} で詳しく復習できます${r.wrong >= 2 ? `　／　この問題は${r.wrong}回間違えています` : ''}</p>
     </div>
     <button class="btn btn-main" id="next">${last ? '結果を見る' : '次の問題へ'}</button>`;
   document.getElementById('next').addEventListener('click', viewQuiz);
@@ -326,14 +317,14 @@ function viewResult(){
   if(!ses) return viewHome();
   const okN = ses.res.filter(r => r.ok).length, n = ses.res.length, rate = Math.round(okN / n * 100);
   const miss = ses.res.filter(r => !r.ok).map(r => byId[r.id]);
-  const msg = rate === 100 ? '全問正解です。' : rate >= 80 ? '合格水準に達しています。' : rate >= 50 ? '合格水準まであと一歩です。間違えた問題を復習しましょう。' : '解説を確認のうえ、もう一度取り組みましょう。';
+  const msg = rate === 100 ? '全問正解！完璧です 🎉' : rate >= 80 ? '合格ライン！この調子でいきましょう' : rate >= 50 ? 'あと一歩。間違えた問題をもう一度' : 'ここからが伸びしろ。解説を読んで再挑戦！';
   store.session = null; save();
   $app.innerHTML = header() + `
-    <div class="card"><h2>結果（${esc(ses.label)}）</h2>
+    <div class="card"><h2>${esc(ses.label)} の結果</h2>
       <div class="score"><b>${okN}</b><span> / ${n}問</span><p>${msg}</p></div></div>
     ${miss.length ? `<div class="card"><h2>間違えた問題</h2>${miss.map(q => `<div class="miss">${esc(q.q)}<em>正解：${esc(q.c[q.a])}（${esc(q.page)}）</em></div>`).join('')}</div>` : ''}
     <div class="stack">
-      ${miss.length ? `<button class="btn btn-accent" id="retry">間違えた${miss.length}問をもう一度解く</button>` : ''}
+      ${miss.length ? `<button class="btn btn-accent" id="retry">間違えた${miss.length}問だけもう一度</button>` : ''}
       <button class="btn ${miss.length ? 'btn-ghost' : 'btn-main'}" id="home">ホームへ戻る</button>
     </div>`;
   const retry = document.getElementById('retry');
